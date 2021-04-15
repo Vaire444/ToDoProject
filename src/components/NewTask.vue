@@ -27,9 +27,10 @@
     </div>
     <div class="row mt-4">
       <div class="col">
+        <!-- <span>{{ this.priorityColor }}</span> -->
         <div
           class="inline-block w-2 h-2 rounded-full mr-2"
-          :class="'bg-' + priorityColor + '-400'"
+          :class="'bg-' + form.priorityColor.toLowerCase() + '-400'"
         />
         <label
           for="priority"
@@ -46,6 +47,7 @@
           <option value="LOW">Low</option>
         </select>
       </div>
+
       <div class="col">
         <div
           class="inline-block w-2 h-2 rounded-full mr-2"
@@ -57,7 +59,11 @@
           >Color</label
         >
 
-        <select name="color" class="mt-1 block w-full border-gray p-1">
+        <select
+          v-model="form.color"
+          name="color"
+          class="mt-1 block w-full border-gray p-1"
+        >
           <option value="GRAY">Gray</option>
           <option value="BLUE">Blue</option>
           <option value="INDIGO">Indigo</option>
@@ -68,7 +74,7 @@
     </div>
     <div class="row mt-5">
       <div class="col text-right">
-        <button class="bg-green-400 px-4 py-2 rounded" @click="addTodo">
+        <button class="bg-green-400 px-4 py-2 rounded" @click="addTodo, reloadPage">
           Add todo
         </button>
       </div>
@@ -84,9 +90,10 @@ export default {
     return {
       form: {
         title: "",
-        date: null,
+        date: new Date(),
         priority: "MEDIUM",
         color: "GRAY",
+        priorityColor: "red",
       },
     };
   },
@@ -101,8 +108,10 @@ export default {
         Low: "green",
         default: "teal",
       };
+      
       return mappings[this.form.priority] || mappings.default;
     },
+
   },
   methods: {
     async addTodo() {
@@ -111,6 +120,9 @@ export default {
         method: "POST",
         data: this.form,
       });
+    },
+    reloadPage() {
+      window.location.reload();
     },
   },
 };
