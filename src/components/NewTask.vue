@@ -74,7 +74,7 @@
     </div>
     <div class="row mt-5">
       <div class="col text-right">
-        <button class="bg-green-400 px-4 py-2 rounded" @click="addTodo, reloadPage">
+        <button class="bg-green-400 px-4 py-2 rounded" @click="addTodo">
           Add todo
         </button>
       </div>
@@ -120,9 +120,6 @@ export default {
         method: "POST",
         data: this.form,
       });
-    },
-    reloadPage() {
-      window.location.reload();
     },
   },
 };
