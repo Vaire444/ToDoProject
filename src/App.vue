@@ -10,7 +10,7 @@
           >
             Add new todo
           </p>
-          <new-task class="my-3" @task-added="getTasks" />
+          <new-task class="my-3" @task-added="getTasks($event)" />
         </div>
       </div>
 

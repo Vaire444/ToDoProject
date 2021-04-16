@@ -27,10 +27,10 @@
     </div>
     <div class="row mt-4">
       <div class="col">
-        <!-- <span>{{ this.priorityColor }}</span> -->
+  
         <div
           class="inline-block w-2 h-2 rounded-full mr-2"
-          :class="'bg-' + form.priorityColor.toLowerCase() + '-400'"
+          :class="'bg-' + priorityColor + '-400'"
         />
         <label
           for="priority"
@@ -93,7 +93,6 @@ export default {
         date: new Date(),
         priority: "MEDIUM",
         color: "GRAY",
-        priorityColor: "red",
       },
     };
   },
@@ -103,9 +102,9 @@ export default {
   computed: {
     priorityColor() {
       const mappings = {
-        High: "red",
-        Medium: "yellow",
-        Low: "green",
+        HIGH: "red",
+        MEDIUM: "yellow",
+        LOW: "green",
         default: "teal",
       };
       
@@ -119,7 +118,14 @@ export default {
         url: "api/createTask",
         method: "POST",
         data: this.form,
-      });
+      })
+      this.$emit('task-added') //Tuleb app.vuest, emit saadab sündmuse 'task-added' parent componendile
+      this.form = { //selle osa saadame evendiga kaasa
+        title: "",
+        date: new Date(),
+        priority: "MEDIUM",
+        color: "GRAY"
+      }
     },
   },
 };
