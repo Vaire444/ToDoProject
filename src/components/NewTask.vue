@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       form: {
-        title: "",
+        title: "New Task",
         date: new Date(),
         priority: "MEDIUM",
         color: "GRAY",
@@ -121,7 +121,7 @@ export default {
       })
       this.$emit('task-added') //Tuleb app.vuest, emit saadab sündmuse 'task-added' parent componendile
       this.form = { //selle osa saadame evendiga kaasa
-        title: "",
+        title: "New Task",
         date: new Date(),
         priority: "MEDIUM",
         color: "GRAY"

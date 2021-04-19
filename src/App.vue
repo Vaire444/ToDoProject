@@ -63,7 +63,16 @@ export default {
   },
   data() {
     return {
-      columns: [],
+      columns: [
+        {
+          title:"Todo",
+          task: []  
+        },
+        {
+          title:"Done",
+          task: []         
+        },
+      ], //paneb mõlemad columsid, selleks panebe struktuuri juurde
     };
   },
   async created() {
@@ -71,18 +80,15 @@ export default {
   },
   methods: {
     async getTasks() {
-      const resTodo = await axios({
-        url: "api/todo-tasks",
+      const getAll = await axios({
+        url: "api/all-tasks", //getin kõik taskid
         method: "GET",
       });
 
-      const resDone = await axios({
-        url: "api/done-tasks",
-        method: "GET",
-      });
+      this.columns = getAll.data //getime kogu data mis columsites
 
-      this.columns.push(resTodo.data[0]);
-      this.columns.push(resDone.data[0]);
+      //this.columns.push(resTodo.data[0]);  ------> võtame maha ei pushi enamvaid tagastab kogu columiste data
+     // this.columns.push(resDone.data[0]);
     },
     async moveTask(event, column) {
       if (event.added) {
