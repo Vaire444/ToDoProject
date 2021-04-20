@@ -10,7 +10,7 @@
           >
             Add new todo
           </p>
-          <new-task class="my-3" @task-added="getTasks($event)" />
+          <new-task class="my-3" @task-added="getTasks" />
         </div>
       </div>
 
@@ -81,7 +81,7 @@ export default {
   methods: {
     async getTasks() {
       const getAll = await axios({
-        url: "api/all-tasks", //getin kõik taskid
+        url: "https://mytod0app.herokuapp.com/api/all-tasks", //getin kõik taskid
         method: "GET",
       });
 
@@ -94,13 +94,13 @@ export default {
       if (event.added) {
         if (column.title === "Done") {
           await axios({
-            url: `api/moveTask/${event.added.element._id}/done`,
+            url: `https://mytod0app.herokuapp.com/api/moveTask/${event.added.element._id}/done`,
             method: "GET",
           });
         }
-        if (column.title === "Todo") {
+        else if (column.title === "Todo") {
           await axios({
-            url: `api/moveTask/${event.added.element._id}/todo`,
+            url: `https://mytod0app.herokuapp.com/api/moveTask/${event.added.element._id}/todo`,
             method: "GET",
           });
         }
