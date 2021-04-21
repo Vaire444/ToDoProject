@@ -65,12 +65,12 @@ export default {
     return {
       columns: [
         {
-          title:"Todo",
-          task: []  
+          title: "Todo",
+          task: [],
         },
         {
-          title:"Done",
-          task: []         
+          title: "Done",
+          task: [],
         },
       ], //paneb mõlemad columsid, selleks panebe struktuuri juurde
     };
@@ -81,26 +81,25 @@ export default {
   methods: {
     async getTasks() {
       const getAll = await axios({
-        url: "https://mytod0app.herokuapp.com/api/all-tasks", //getin kõik taskid
+        url: "https://todoapp8888.herokuapp.com//api/all-tasks", //getin kõik taskid
         method: "GET",
       });
 
-      this.columns = getAll.data //getime kogu data mis columsites
+      this.columns = getAll.data; //getime kogu data mis columsites
 
       //this.columns.push(resTodo.data[0]);  ------> võtame maha ei pushi enamvaid tagastab kogu columiste data
-     // this.columns.push(resDone.data[0]);
+      // this.columns.push(resDone.data[0]);
     },
     async moveTask(event, column) {
       if (event.added) {
         if (column.title === "Done") {
           await axios({
-            url: `https://mytod0app.herokuapp.com/api/moveTask/${event.added.element._id}/done`,
+            url: `https://todoapp8888.herokuapp.com//api/moveTask/${event.added.element._id}/done`,
             method: "GET",
           });
-        }
-        else if (column.title === "Todo") {
+        } else if (column.title === "Todo") {
           await axios({
-            url: `https://mytod0app.herokuapp.com/api/moveTask/${event.added.element._id}/todo`,
+            url: `https://todoapp8888.herokuapp.com//api/moveTask/${event.added.element._id}/todo`,
             method: "GET",
           });
         }
