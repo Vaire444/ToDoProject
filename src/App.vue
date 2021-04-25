@@ -2,6 +2,15 @@
   <div id="app">
     <div class="flex justify-center">
       <div class="min-h-screen flex overflow-x-scroll py-12">
+        <div class="bg-gray-100 rounded-lg px-3 py-3 rounded mr-4">
+          <p
+            class="text-gray-700 font-semibold font-sans tracking-wide text-sm"
+          >
+            Add name
+          </p>
+          <add-name class="my-3" @name-added="getTasksByName($event)" />
+        </div>
+
         <div
           class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4"
         >
@@ -10,10 +19,9 @@
           >
             Add new todo
           </p>
-          <new-task class="my-3" @task-added="getTasks" />
+          <new-task class="my-3" @task-added="getTasksByName($event)" />
         </div>
       </div>
-
       <div class="min-h-screen flex overflow-x-scroll py-12">
         <div
           v-for="column in columns"
@@ -53,6 +61,7 @@ import draggable from "vuedraggable";
 import TaskCard from "./components/TaskCard.vue";
 import NewTask from "./components/NewTask.vue";
 import axios from "axios";
+import AddName from "./components/addName.vue";
 
 export default {
   name: "App",
@@ -60,6 +69,7 @@ export default {
     TaskCard,
     draggable,
     NewTask,
+    AddName,
   },
   data() {
     return {
@@ -81,7 +91,8 @@ export default {
   methods: {
     async getTasks() {
       const getAll = await axios({
-        url: "https://todoapp8888.herokuapp.com/api/all-tasks", //getin kõik taskid
+        url: "api/all-tasks", //getin kõik taskid
+        // url: "https://todoapp8888.herokuapp.com/api/all-tasks", //getin kõik taskid
         method: "GET",
       });
 
@@ -90,16 +101,29 @@ export default {
       //this.columns.push(resTodo.data[0]);  ------> võtame maha ei pushi enamvaid tagastab kogu columiste data
       // this.columns.push(resDone.data[0]);
     },
+    async getTasksByName(event) {
+      const getAllByName = await axios({
+        url: "api/getTasksByName/" + event.userName, //getin kõik taskid
+        // url: "https://todoapp8888.herokuapp.com/api/all-tasks", //getin kõik taskid
+        method: "GET",
+      });
+      this.columns = getAllByName.data.result; //getime kogu data mis columsites
+
+      //this.columns.push(resTodo.data[0]);  ------> võtame maha ei pushi enamvaid tagastab kogu columiste data
+      // this.columns.push(resDone.data[0]);
+    },
     async moveTask(event, column) {
       if (event.added) {
         if (column.title === "Done") {
           await axios({
-            url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/done`,
+            // url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/done`,
+            url: `api/moveTask/${event.added.element._id}/done`,
             method: "GET",
           });
         } else if (column.title === "Todo") {
           await axios({
-            url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/todo`,
+            // url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/todo`,
+            url: `api/moveTask/${event.added.element._id}/todo`,
             method: "GET",
           });
         }

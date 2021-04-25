@@ -27,7 +27,6 @@
     </div>
     <div class="row mt-4">
       <div class="col">
-  
         <div
           class="inline-block w-2 h-2 rounded-full mr-2"
           :class="'bg-' + priorityColor + '-400'"
@@ -93,6 +92,7 @@ export default {
         date: new Date(),
         priority: "MEDIUM",
         color: "GRAY",
+        userName: "John",
       },
     };
   },
@@ -107,25 +107,27 @@ export default {
         LOW: "green",
         default: "teal",
       };
-      
+
       return mappings[this.form.priority] || mappings.default;
     },
-
   },
   methods: {
     async addTodo() {
       await axios({
-        url: "https://mytod0app.herokuapp.com/api/createTask",
+        // url: "https://todoapp8888.herokuapp.com/api/createTask",
+        url: "/api/createTask",
         method: "POST",
         data: this.form,
-      })
-      this.$emit('task-added') //Tuleb app.vuest, emit saadab sündmuse 'task-added' parent componendile
-      this.form = { //selle osa saadame evendiga kaasa
+      });
+      this.$emit("task-added"); //Tuleb app.vuest, emit saadab sündmuse 'task-added' parent componendile
+      this.form = {
+        //selle osa saadame evendiga kaasa
         title: "New Task",
         date: new Date(),
         priority: "MEDIUM",
-        color: "GRAY"
-      }
+        color: "GRAY",
+        userName: "John",
+      };
     },
   },
 };
