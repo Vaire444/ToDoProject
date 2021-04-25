@@ -93,6 +93,7 @@ export default {
         date: new Date(),
         priority: "MEDIUM",
         color: "GRAY",
+        userName: "Mary",
       },
     };
   },
@@ -115,7 +116,8 @@ export default {
   methods: {
     async addTodo() {
       await axios({
-        url: "https://mytod0app.herokuapp.com/api/createTask",
+        //url: "https://mytod0app.herokuapp.com/api/createTask",
+        url: "api/createTask",
         method: "POST",
         data: this.form,
       })
@@ -124,7 +126,8 @@ export default {
         title: "New Task",
         date: new Date(),
         priority: "MEDIUM",
-        color: "GRAY"
+        color: "GRAY",
+        userName: "Mary"
       }
     },
   },
