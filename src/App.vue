@@ -108,8 +108,10 @@ export default {
     },
     async getTasksByName(event) {
       const getAllByName = await axios({
-        url: "api/getTasksByName/" + event.userName,
-        // url: "https://todoapp8888.herokuapp.com/api/all-tasks",
+        // url: "api/getTasksByName/" + event.userName,
+        url:
+          "https://todoapp8888.herokuapp.com/api/getTasksByName/" +
+          event.userName,
         method: "GET",
       });
       (this.isHidden = false), (this.columns = getAllByName.data.result); //getime kogu data mis columsites
@@ -119,14 +121,14 @@ export default {
       if (event.added) {
         if (column.title === "Done") {
           await axios({
-            // url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/done`,
-            url: `api/moveTask/${event.added.element._id}/done`,
+            url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/done`,
+            // url: `api/moveTask/${event.added.element._id}/done`,
             method: "GET",
           });
         } else if (column.title === "Todo") {
           await axios({
-            // url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/todo`,
-            url: `api/moveTask/${event.added.element._id}/todo`,
+            url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/todo`,
+            // url: `api/moveTask/${event.added.element._id}/todo`,
             method: "GET",
           });
         }
