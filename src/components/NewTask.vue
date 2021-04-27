@@ -5,6 +5,7 @@
         <label for="title" class="block text-sm font-medium text-gray-700"
           >Title</label
         >
+        <!-- <add-name class="my-3" @name-added="addNewName" /> -->
         <input
           v-model="form.title"
           type="text"
@@ -18,11 +19,21 @@
         <label for="first_name" class="block text-sm font-medium text-gray-700"
           >Date</label
         >
+
         <datepicker
           class="block text-sm font-medium text-gray-700 p-1"
           placeholder="Select Date"
           v-model="form.date"
         ></datepicker>
+      </div>
+      <div class="col">
+        <label for="first_name" class="block text-sm font-medium text-gray-700"
+          >Name</label
+        >
+
+        <span class="block text-sm font-medium text-gray-700 p-1">
+          {{ name }}
+        </span>
       </div>
     </div>
     <div class="row mt-4">
@@ -39,7 +50,7 @@
         <select
           v-model="form.priority"
           name="priority"
-          class="mt-1 block w-full p-1"
+          class="mt-1 block w-full border-gray p-1"
         >
           <option value="HIGH">High</option>
           <option value="MEDIUM">Medium</option>
@@ -81,6 +92,7 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 import axios from "axios";
 import Datepicker from "vuejs-datepicker";
 
@@ -92,7 +104,7 @@ export default {
         date: new Date(),
         priority: "MEDIUM",
         color: "GRAY",
-        userName: "John",
+        userName: "Jane",
       },
     };
   },
@@ -110,24 +122,25 @@ export default {
 
       return mappings[this.form.priority] || mappings.default;
     },
+    ...mapState({
+      name: (state) => state.name,
+      nameAlias: "name",
+    }),
   },
   methods: {
     async addTodo() {
+      let newName = this.name;
+      this.form.userName = newName;
+
       await axios({
         // url: "https://todoapp8888.herokuapp.com/api/createTask",
         url: "/api/createTask",
         method: "POST",
         data: this.form,
       });
-      this.$emit("task-added"); //Tuleb app.vuest, emit saadab sündmuse 'task-added' parent componendile
-      this.form = {
-        //selle osa saadame evendiga kaasa
-        title: "New Task",
-        date: new Date(),
-        priority: "MEDIUM",
-        color: "GRAY",
-        userName: "John",
-      };
+      this.$emit("task-added", {
+        userName: this.form.userName,
+      });
     },
   },
 };

@@ -2,7 +2,10 @@
   <div id="app">
     <div class="flex justify-center">
       <div class="min-h-screen flex overflow-x-scroll py-12">
-        <div class="bg-gray-100 rounded-lg px-3 py-3 rounded mr-4">
+        <div
+          v-if="isHidden"
+          class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4"
+        >
           <p
             class="text-gray-700 font-semibold font-sans tracking-wide text-sm"
           >
@@ -12,6 +15,7 @@
         </div>
 
         <div
+          v-if="!isHidden"
           class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4"
         >
           <p
@@ -22,7 +26,7 @@
           <new-task class="my-3" @task-added="getTasksByName($event)" />
         </div>
       </div>
-      <div class="min-h-screen flex overflow-x-scroll py-12">
+      <div v-if="!isHidden" class="min-h-screen flex overflow-x-scroll py-12">
         <div
           v-for="column in columns"
           :key="column.title"
@@ -82,7 +86,8 @@ export default {
           title: "Done",
           task: [],
         },
-      ], //paneb mõlemad columsid, selleks panebe struktuuri juurde
+      ], //paneb mõlemad columsid, selleks paneme struktuuri juurde
+      isHidden: true,
     };
   },
   async created() {
@@ -92,7 +97,7 @@ export default {
     async getTasks() {
       const getAll = await axios({
         url: "api/all-tasks", //getin kõik taskid
-        // url: "https://todoapp8888.herokuapp.com/api/all-tasks", //getin kõik taskid
+        // url: "https://todoapp8888.herokuapp.com/api/all-tasks",
         method: "GET",
       });
 
@@ -103,15 +108,13 @@ export default {
     },
     async getTasksByName(event) {
       const getAllByName = await axios({
-        url: "api/getTasksByName/" + event.userName, //getin kõik taskid
-        // url: "https://todoapp8888.herokuapp.com/api/all-tasks", //getin kõik taskid
+        url: "api/getTasksByName/" + event.userName,
+        // url: "https://todoapp8888.herokuapp.com/api/all-tasks",
         method: "GET",
       });
-      this.columns = getAllByName.data.result; //getime kogu data mis columsites
-
-      //this.columns.push(resTodo.data[0]);  ------> võtame maha ei pushi enamvaid tagastab kogu columiste data
-      // this.columns.push(resDone.data[0]);
+      (this.isHidden = false), (this.columns = getAllByName.data.result); //getime kogu data mis columsites
     },
+
     async moveTask(event, column) {
       if (event.added) {
         if (column.title === "Done") {

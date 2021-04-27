@@ -17,7 +17,13 @@
 
     <div class="row mt-5">
       <div class="col text-right">
-        <button class="bg-green-400 px-4 py-2 rounded" @click="addName">
+        <button
+          class="bg-green-400 px-4 py-2 rounded"
+          @click="
+            addName();
+            $store.commit('setName', form.userName);
+          "
+        >
           Add name
         </button>
       </div>
@@ -25,8 +31,7 @@
   </div>
 </template>
 <script>
-// import axios from "axios";
-
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -36,23 +41,15 @@ export default {
     };
   },
 
+  computed: mapState({
+    name: (state) => state.name,
+    nameAlias: "name",
+  }),
   methods: {
     async addName() {
-      // let name = this.form.userName;
-      // await axios({
-      //   // url: "https://todoapp8888.herokuapp.com/api/createTask",
-      //   url: `api/getTasksByName/${name}`,
-      //   method: "GET",
-      //   data: this.form,
-      // });
-
       this.$emit("name-added", {
         userName: this.form.userName,
       });
-      //Tuleb app.vuest, emit saadab sündmuse 'task-added' parent componendile
-      // this.form = {
-      //   userName: "",
-      // };
     },
   },
 };

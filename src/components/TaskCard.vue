@@ -7,7 +7,6 @@
       <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">
         {{ task.title }}
       </p>
-      <!-- <button class="text-gray-700 px-2 rounded">X</button> -->
     </div>
     <div class="flex mt-4 justify-between items-center">
       <span class="text-sm text-gray-600">{{
@@ -24,7 +23,6 @@
   </div>
 </template>
 <script>
-// import axios from "axios";
 import Badge from "./Badge.vue";
 
 export default {
@@ -49,25 +47,6 @@ export default {
       return mappings[this.task.priority] || mappings.default;
     },
   },
-  // methods: {
-  //   async deleteTask(event, column) {
-  //     if (event.delete) {
-  //       if (column.title === "Done") {
-  //         await axios({
-  //           // url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.delete.element._id}/done`,
-  //           url: `/api/moveTask/${event.delete.element._id}/done`,
-  //           method: "GET",
-  //         });
-  //       } else if (column.title === "Todo") {
-  //         await axios({
-  //           // url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.delete.element._id}/todo`,
-  //           url: `/api/moveTask/${event.delete.element._id}/todo`,
-  //           method: "GET",
-  //         });
-  //       }
-  //     }
-  //   },
-  // },
 };
 </script>
 
