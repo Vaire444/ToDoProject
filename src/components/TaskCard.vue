@@ -7,9 +7,9 @@
       <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">
         {{ task.title }}
       </p>
-      <button class="bg-red-400 px-1 rounded" id="delete" @click="deleteTodo">
+      <!-- <button class="bg-red-400 px-1 rounded" id="delete" @click="deleteTodo">
         Delete
-      </button>
+      </button> -->
     </div>
     <div class="flex mt-4 justify-between items-center">
       <span class="text-sm text-gray-600">{{
@@ -64,21 +64,21 @@ export default {
   //       });
   // },
 
-  async moveTask(event, column) {
-    if (event.delete) {
-      if (column.title === "Done") {
-        await axios({
-          url: `/api/DeleteTask/${event.delete.element._id}/done`,
-          method: "DELETE",
-        });
-      } else if (column.title === "Todo") {
-        await axios({
-          url: `/api/moveTask/${event.added.element._id}/todo`,
-          method: "GET",
-        });
-      }
-    }
-  },
+  // async moveTask(event, column) {
+  //   if (event.delete) {
+  //     if (column.title === "Done") {
+  //       await axios({
+  //         url: `/api/DeleteTask/${event.delete.element._id}/done`,
+  //         method: "DELETE",
+  //       });
+  //     } else if (column.title === "Todo") {
+  //       await axios({
+  //         url: `/api/moveTask/${event.added.element._id}/todo`,
+  //         method: "GET",
+  //       });
+  //     }
+  //   }
+  // },
 };
 </script>
 

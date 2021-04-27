@@ -1,5 +1,6 @@
 <template>
   <div class="bg-white shadow rounded px-3 pt-3 pb-5 border border-white">
+
     <div class="row">
       <div class="col">
         <label for="title" class="block text-sm font-medium text-gray-700"
@@ -14,31 +15,39 @@
       </div>
     </div>
 
-    <div class="row mt-4">
- 
-    </div>
-    <div class="row mt-5">
+    <col class="row mt-5">
       <div class="col text-right">
-        <button class="bg-green-400 px-4 py-2 rounded" @click="addName">
+        <button class="bg-green-400 px-4 py-2 rounded" @click="addName();  $store.commit('setName', form.userName);">
           Find your Tasks
         </button>
       </div>
-    </div>
+
+
+
   </div>
 </template>
 <script>
-import axios from "axios";
+//import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   data() {
     return {
       form: {
-        userName: "User Name"
+        userName: "John"
       },
+  input: "",
     };
   },
+ computed: mapState({
+    name: (state) => state.name,
+    nameAlias: "name",
+  }),
+
   methods: {
     async addName() {
+       // eslint-disable-next-line no-console
+      console.log("Olen siin addName")
       //axioust ei ole vaja eraldi välja tuua
       this.$emit('name-added', { 
         userName: this.form.userName
