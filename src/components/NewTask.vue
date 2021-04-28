@@ -99,6 +99,7 @@ import Datepicker from "vuejs-datepicker";
 export default {
   data() {
     return {
+      apiURL: process.env.VUE_APP_BACKEND_URL,
       form: {
         title: "New Task",
         date: new Date(),
