@@ -134,7 +134,7 @@ export default {
 
       await axios({
         // url: "https://todoapp8888.herokuapp.com/api/createTask",
-        url: `${this.apiURL}/api/createTask`,
+        url: `${this.apiURL}api/createTask`,
         // url: "/api/createTask",
         method: "POST",
         data: this.form,
