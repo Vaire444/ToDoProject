@@ -7,9 +7,9 @@
       <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">
         {{ task.title }}
       </p>
-      <!-- <button class="bg-red-400 px-1 rounded" id="delete" @click="deleteTodo">
+      <button class="bg-red-400 px-1 rounded" id="delete" @click="deleteTodo">
         Delete
-      </button> -->
+      </button>
     </div>
     <div class="flex mt-4 justify-between items-center">
       <span class="text-sm text-gray-600">{{
@@ -27,6 +27,7 @@
 </template>
 <script>
 import Badge from "./Badge.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -50,19 +51,14 @@ export default {
     },
   },
 
-  // async deleteTodo(id, index) {
-
-  //   if (confirm("Oled kindel?"))
-  //     await axios
-  //       .delete("/api/Todo/" + id)
-  //       .then((response) => {
-  //         this.tasks.splice(index, 1);
-  //         console.log(response);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error.message);
-  //       });
-  // },
+  async deleteTodo() {
+      await axios({
+        url: `${apiURL}/api/deleteTask/:id/:toTask`,
+        method: "DELETE",
+        data: this.task,
+      });
+      this.$emit("task-deleted");
+  },
 
   // async moveTask(event, column) {
   //   if (event.delete) {

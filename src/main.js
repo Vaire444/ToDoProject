@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import moment from "moment";
 import store from "../store";
+import './registerServiceWorker'
 
 Vue.prototype.$moment = moment;
 

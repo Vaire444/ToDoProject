@@ -15,6 +15,11 @@
           <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm"> Add new todo</p>
           <new-task class="my-3" @task-added="getTasksByName" />
         </div>
+
+     <div>    
+       <task-card class="my-3" @task-deleted="moveTask" /> 
+       </div>
+        
         
       </div>
       </div>
@@ -73,6 +78,8 @@ export default {
   },
   data() {
     return {
+      apiURL: PROCESS.ENV.VUE_APP_BACKEND_URL,
+      //connections: true
       columns: [
         {
           title:"Todo",
@@ -95,7 +102,7 @@ export default {
     async getTasks() {
       const getAll = await axios({
         //url: "https://mytod0app.herokuapp.com/api/all-tasks", //getin kõik taskid
-        url: "api/all-tasks",
+        url: `${apiURL}/all-tasks`,
         method: "GET",
       });
       this.columns = getAll.data//getime kogu data mis columsites
@@ -107,11 +114,13 @@ export default {
     // eslint-disable-next-line no-console
     console.log(event) //objet mille sees on property
       const getTasksName = await axios({
-        url:"api/getTasksByName/" + event.userName, //get tasks By Name
+        url: `${apiURL}/api/getTasksByName/` + event.userName, //get tasks By Name
         method: "GET",
       });
       // eslint-disable-next-line no-console
       console.log("GetTasksByName" + getTasksName)
+         // eslint-disable-next-line no-console
+      console.log("olen siin")
       this.isHidden = true;
       this.columns = getTasksName.data.result; //getime data mis columsites
 },
@@ -121,15 +130,17 @@ export default {
       if (event.added) {
         if (column.title === "Done") {
           await axios({
-            url: `https://mytod0app.herokuapp.com/api/moveTask/${event.added.element._id}/done`,
+            url: `${apiURL}/api/moveTask/${event.added.element._id}/done`,
             method: "GET",
           });
         }
         else if (column.title === "Todo") {
           await axios({
-            url: `https://mytod0app.herokuapp.com/api/moveTask/${event.added.element._id}/todo`,
+            url: `${apiURL}/api/moveTask/${event.added.element._id}/todo`,
             method: "GET",
           });
+              // eslint-disable-next-line no-console
+      console.log("olen siin")
         }
       }
     },
