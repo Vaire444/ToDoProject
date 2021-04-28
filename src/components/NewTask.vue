@@ -133,14 +133,20 @@ export default {
       this.form.userName = newName;
 
       await axios({
-        url: "https://todoapp8888.herokuapp.com/api/createTask",
-        // url: "/api/createTask",
+        // url: "https://todoapp8888.herokuapp.com/api/createTask",
+        url: "/api/createTask",
         method: "POST",
         data: this.form,
       });
       this.$emit("task-added", {
         userName: this.form.userName,
       });
+      this.form = {
+        title: "New Task",
+        date: new Date(),
+        priority: "MEDIUM",
+        color: "GRAY",
+      };
     },
   },
 };

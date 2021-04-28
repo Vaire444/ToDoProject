@@ -77,6 +77,7 @@ export default {
   },
   data() {
     return {
+      apiURL: process.env.VUE_APP_BACKEND_URL,
       columns: [
         {
           title: "Todo",
@@ -96,8 +97,9 @@ export default {
   methods: {
     async getTasks() {
       const getAll = await axios({
+        url: `${this.apiURL}/api/all-tasks`,
         // url: "api/all-tasks", //getin kõik taskid
-        url: "https://todoapp8888.herokuapp.com/api/all-tasks",
+        // url: "https://todoapp8888.herokuapp.com/api/all-tasks",
         method: "GET",
       });
 
@@ -108,8 +110,9 @@ export default {
     },
     async getTasksByName(event) {
       const getAllByName = await axios({
+        url: `${this.apiURL}/api/getTasksByName/` + event.userName,
         // url: "api/getTasksByName/" + event.userName,
-        url: `https://todoapp8888.herokuapp.com/api/getTasksByName/${event.userName}`,
+        // url: `https://todoapp8888.herokuapp.com/api/getTasksByName/${event.userName}`,
         method: "GET",
       });
       (this.isHidden = false), (this.columns = getAllByName.data.result); //getime kogu data mis columsites
@@ -119,14 +122,16 @@ export default {
       if (event.added) {
         if (column.title === "Done") {
           await axios({
-            url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/done`,
+            // url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/done`,
             // url: `api/moveTask/${event.added.element._id}/done`,
+            url: `${this.apiURL}/api/moveTask/${event.added.element._id}/done`,
             method: "GET",
           });
         } else if (column.title === "Todo") {
           await axios({
-            url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/todo`,
+            // url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/todo`,
             // url: `api/moveTask/${event.added.element._id}/todo`,
+            url: `${this.apiURL}/api/moveTask/${event.added.element._id}/todo`,
             method: "GET",
           });
         }
