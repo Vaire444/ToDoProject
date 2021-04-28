@@ -102,7 +102,7 @@ export default {
     async getTasks() {
       const getAll = await axios({
         //url: "https://mytod0app.herokuapp.com/api/all-tasks", //getin kõik taskid
-        url: `${this.apiURL}/all-tasks`,
+        url: `${this.apiURL}all-tasks`,
         method: "GET",
       });
       this.columns = getAll.data//getime kogu data mis columsites
@@ -114,7 +114,7 @@ export default {
     // eslint-disable-next-line no-console
     console.log(event) //objet mille sees on property
       const getTasksName = await axios({
-        url: `${this.apiURL}/api/getTasksByName/` + event.userName, //get tasks By Name
+        url: `${this.apiURL}api/getTasksByName/` + event.userName, //get tasks By Name
         method: "GET",
       });
       // eslint-disable-next-line no-console
@@ -130,13 +130,13 @@ export default {
       if (event.added) {
         if (column.title === "Done") {
           await axios({
-            url: `${this.apiURL}/api/moveTask/${event.added.element._id}/done`,
+            url: `${this.apiURL}api/moveTask/${event.added.element._id}/done`,
             method: "GET",
           });
         }
         else if (column.title === "Todo") {
           await axios({
-            url: `${this.apiURL}/api/moveTask/${event.added.element._id}/todo`,
+            url: `${this.apiURL}api/moveTask/${event.added.element._id}/todo`,
             method: "GET",
           });
               // eslint-disable-next-line no-console
