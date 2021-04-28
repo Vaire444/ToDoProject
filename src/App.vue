@@ -78,7 +78,7 @@ export default {
   },
   data() {
     return {
-      apiURL: PROCESS.ENV.VUE_APP_BACKEND_URL,
+      apiURL: process.env.VUE_APP_BACKEND_URL,
       //connections: true
       columns: [
         {
