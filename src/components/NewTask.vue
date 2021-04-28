@@ -138,15 +138,9 @@ export default {
   methods: {
     async addTodo() {
       let newName = this.name;
-      // eslint-disable-next-line no-console
-      console.log("This name " + this.name);
-    
       this.form.userName = newName;
-         // eslint-disable-next-line no-console
-   console.log("This username " + this.form.userName);
-   
       await axios({
-        //url: "https://mytod0app.herokuapp.com/api/createTask",
+   
         url: `${this.apiURL}api/createTask`,
         method: "POST",
         data: this.form,

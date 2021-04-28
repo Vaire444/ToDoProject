@@ -27,9 +27,15 @@
 </template>
 <script>
 import Badge from "./Badge.vue";
-//import axios from "axios";
+import axios from "axios";
 
 export default {
+  data() {
+    return {
+      apiURL: process.env.VUE_APP_BACKEND_URL,
+    };
+  },
+
   components: {
     Badge,
   },
@@ -51,6 +57,20 @@ export default {
     },
   },
 
+methods: {
+    async deleteTodo() {
+      let newName = this.$store.state.name
+      //let test6 = this.task._id
+      await axios({
+        url: `${this.apiURL}api/deleteTask`,
+        method: "DELETE",
+        data: this.task,
+      });
+      // eslint-disable-next-line no-console
+        //console.log("olen test6 " + test6),
+      this.$emit('task-deleted', {userName: newName});
+  },
+},
 
   // async moveTask(event, column) {
   //   if (event.delete) {

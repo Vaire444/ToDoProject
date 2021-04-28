@@ -46,8 +46,6 @@ export default {
 
   methods: {
     async addName() {
-       // eslint-disable-next-line no-console
-      console.log("Olen siin addName")
       //axioust ei ole vaja eraldi välja tuua
       this.$emit('name-added', { 
         userName: this.form.userName

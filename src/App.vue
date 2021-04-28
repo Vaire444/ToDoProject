@@ -16,11 +16,6 @@
           <new-task class="my-3" @task-added="getTasksByName" />
         </div>
 
-     <div>    
-       <task-card class="my-3" @task-deleted="moveTask" /> 
-       </div>
-        
-        
       </div>
       </div>
 
@@ -53,6 +48,7 @@
               :key="task.id"
               :task="task"
               class="mt-3 cursor-move"
+             @task-deleted="getTasksByName"
             ></task-card>
           </draggable>
         </div>
@@ -99,10 +95,10 @@ export default {
 
   },
   methods: {
+  
     async getTasks() {
       const getAll = await axios({
-        //url: "https://mytod0app.herokuapp.com/api/all-tasks", //getin kõik taskid
-        url: `${this.apiURL}all-tasks`,
+        url: `${this.apiURL}api/all-tasks`,
         method: "GET",
       });
       this.columns = getAll.data//getime kogu data mis columsites
@@ -112,15 +108,13 @@ export default {
 
   async getTasksByName(event) {
     // eslint-disable-next-line no-console
-    console.log(event) //objet mille sees on property
+    //console.log(event) //objet mille sees on property
       const getTasksName = await axios({
         url: `${this.apiURL}api/getTasksByName/` + event.userName, //get tasks By Name
         method: "GET",
       });
       // eslint-disable-next-line no-console
-      console.log("GetTasksByName" + getTasksName)
-         // eslint-disable-next-line no-console
-      console.log("olen siin")
+      //console.log("GetTasksByName" + getTasksName)
       this.isHidden = true;
       this.columns = getTasksName.data.result; //getime data mis columsites
 },
@@ -139,8 +133,6 @@ export default {
             url: `${this.apiURL}api/moveTask/${event.added.element._id}/todo`,
             method: "GET",
           });
-              // eslint-disable-next-line no-console
-      console.log("olen siin")
         }
       }
     },
