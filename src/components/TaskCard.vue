@@ -51,14 +51,14 @@ export default {
     },
   },
 
-  async deleteTodo() {
-      await axios({
-        url: `${apiURL}/api/deleteTask/:id/:toTask`,
-        method: "DELETE",
-        data: this.task,
-      });
-      this.$emit("task-deleted");
-  },
+  // async deleteTodo() {
+  //     await axios({
+  //       url: `${apiURL}/api/deleteTask/:id/:toTask`,
+  //       method: "DELETE",
+  //       data: this.task,
+  //     });
+  //     this.$emit("task-deleted");
+  // },
 
   // async moveTask(event, column) {
   //   if (event.delete) {
