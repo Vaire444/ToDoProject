@@ -7,8 +7,7 @@
       <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">
         {{ task.title }}
       </p>
-    </div>
-    <div class="flex justify-between">
+
       <button
         class="text-gray-700 font-semibold font-sans tracking-wide text-sm"
         id="delete"
