@@ -52,6 +52,7 @@
               :key="task.id"
               :task="task"
               class="mt-3 cursor-move"
+              @task-deleted="getTasksByName"
             ></task-card>
           </draggable>
         </div>

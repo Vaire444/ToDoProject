@@ -8,6 +8,15 @@
         {{ task.title }}
       </p>
     </div>
+    <div class="flex justify-between">
+      <p
+        class="text-gray-700 font-semibold font-sans tracking-wide text-sm"
+        id="delete"
+        @click="deleteTodo"
+      >
+        <mdb-icon far icon="trash-alt" />
+      </p>
+    </div>
     <div class="flex mt-4 justify-between items-center">
       <span class="text-sm text-gray-600">{{
         $moment(task.date).format("DD.MM.YYYY")
@@ -24,6 +33,7 @@
 </template>
 <script>
 import Badge from "./Badge.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -45,6 +55,18 @@ export default {
         default: "teal",
       };
       return mappings[this.task.priority] || mappings.default;
+    },
+  },
+
+  methods: {
+    async deleteTodo() {
+      let newName = this.$store.state.name;
+      await axios({
+        url: `${this.apiURL}api/deleteTask`,
+        method: "DELETE",
+        data: this.task,
+      });
+      this.$emit("task-deleted", { userName: newName });
     },
   },
 };
