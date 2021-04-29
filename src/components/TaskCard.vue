@@ -9,13 +9,13 @@
       </p>
     </div>
     <div class="flex justify-between">
-      <p
+      <button
         class="text-gray-700 font-semibold font-sans tracking-wide text-sm"
         id="delete"
         @click="deleteTodo"
       >
         <mdb-icon far icon="trash-alt" />
-      </p>
+      </button>
     </div>
     <div class="flex mt-4 justify-between items-center">
       <span class="text-sm text-gray-600">{{
