@@ -13,17 +13,29 @@
           </p>
           <add-name class="my-3" @name-added="getTasksByName($event)" />
         </div>
-
-        <div
-          v-if="!isHidden"
-          class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4"
-        >
-          <p
-            class="text-gray-700 font-semibold font-sans tracking-wide text-sm"
+        <div>
+          <div
+            v-if="!isHidden"
+            class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4"
           >
-            Add new todo
-          </p>
-          <new-task class="my-3" @task-added="getTasksByName($event)" />
+            <p
+              class="text-gray-700 font-semibold font-sans tracking-wide text-sm"
+            >
+              Add new todo
+            </p>
+            <new-task class="my-3" @task-added="getTasksByName($event)" />
+          </div>
+          <div
+            v-if="!isHidden"
+            class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4"
+          >
+            <p
+              class="text-gray-700 font-semibold font-sans tracking-wide text-sm"
+            >
+              Download file(s)
+            </p>
+            <download-file class="my-3" />
+          </div>
         </div>
       </div>
       <div v-if="!isHidden" class="min-h-screen flex overflow-x-scroll py-12">
@@ -67,7 +79,7 @@ import TaskCard from "./components/TaskCard.vue";
 import NewTask from "./components/NewTask.vue";
 import axios from "axios";
 import AddName from "./components/addName.vue";
-
+import DownloadFile from "./components/downloadFile.vue";
 export default {
   name: "App",
   components: {
@@ -75,6 +87,7 @@ export default {
     draggable,
     NewTask,
     AddName,
+    DownloadFile,
   },
   data() {
     return {
@@ -98,8 +111,8 @@ export default {
   methods: {
     async getTasks() {
       const getAll = await axios({
-        url: `${this.apiURL}api/all-tasks`,
-        // url: "api/all-tasks", //getin kõik taskid
+        // url: `${this.apiURL}api/all-tasks`,
+        url: "api/all-tasks", //getin kõik taskid
         // url: "https://todoapp8888.herokuapp.com/api/all-tasks",
         method: "GET",
       });
@@ -111,8 +124,8 @@ export default {
     },
     async getTasksByName(event) {
       const getAllByName = await axios({
-        url: `${this.apiURL}api/getTasksByName/` + event.userName,
-        // url: "api/getTasksByName/" + event.userName,
+        // url: `${this.apiURL}api/getTasksByName/` + event.userName,
+        url: "api/getTasksByName/" + event.userName,
         // url: `https://todoapp8888.herokuapp.com/api/getTasksByName/${event.userName}`,
         method: "GET",
       });
@@ -124,15 +137,15 @@ export default {
         if (column.title === "Done") {
           await axios({
             // url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/done`,
-            // url: `api/moveTask/${event.added.element._id}/done`,
-            url: `${this.apiURL}api/moveTask/${event.added.element._id}/done`,
+            url: `api/moveTask/${event.added.element._id}/done`,
+            // url: `${this.apiURL}api/moveTask/${event.added.element._id}/done`,
             method: "GET",
           });
         } else if (column.title === "Todo") {
           await axios({
             // url: `https://todoapp8888.herokuapp.com/api/moveTask/${event.added.element._id}/todo`,
-            // url: `api/moveTask/${event.added.element._id}/todo`,
-            url: `${this.apiURL}api/moveTask/${event.added.element._id}/todo`,
+            url: `api/moveTask/${event.added.element._id}/todo`,
+            // url: `${this.apiURL}api/moveTask/${event.added.element._id}/todo`,
             method: "GET",
           });
         }

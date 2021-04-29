@@ -7,14 +7,15 @@
       <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">
         {{ task.title }}
       </p>
-
-      <button
-        class="text-gray-700 font-semibold font-sans tracking-wide text-sm"
-        id="delete"
-        @click="deleteTodo"
-      >
-        <mdb-icon far icon="trash-alt" />
-      </button>
+      <p>
+        <button
+          class="text-red-700 font-semibold font-sans tracking-wide text-sm"
+          id="delete"
+          @click="deleteTodo"
+        >
+          delete
+        </button>
+      </p>
     </div>
     <div class="flex mt-4 justify-between items-center">
       <span class="text-sm text-gray-600">{{
@@ -61,7 +62,8 @@ export default {
     async deleteTodo() {
       let newName = this.$store.state.name;
       await axios({
-        url: `${this.apiURL}api/deleteTask`,
+        url: `api/deleteTask`,
+        // url: `${this.apiURL}api/deleteTask`,
         method: "DELETE",
         data: this.task,
       });
