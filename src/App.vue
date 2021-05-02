@@ -14,6 +14,7 @@
          <div v-if="isHidden" class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4">
           <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm"> Add new todo</p>
           <new-task class="my-3" @task-added="getTasksByName" />
+          <download class="my-3" @name-added="getTasksByName" />
         </div>
 
       </div>
@@ -63,6 +64,7 @@ import TaskCard from "./components/TaskCard.vue";
 import NewTask from "./components/NewTask.vue";
 import NameCard from "./components/NameCard.vue";
 import axios from "axios";
+import Download from './components/Download.vue';
 
 export default {
   name: "App",
@@ -70,8 +72,10 @@ export default {
     TaskCard,
     draggable,
     NewTask,
-    NameCard
+    NameCard,
+    Download
   },
+
   data() {
     return {
       apiURL: process.env.VUE_APP_BACKEND_URL,
