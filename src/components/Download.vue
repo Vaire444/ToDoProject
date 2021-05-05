@@ -16,7 +16,7 @@
           >File type</label
         >
         <select
-          v-model="form.filetype"
+          v-model="form.fileType"
           name="filetype"
           class="mt-1 block w-full border-gray text-gray-700 p-1"
         >
@@ -31,10 +31,10 @@
           >
           <div>
             <div>
-              <input class="mt-4" for="Done" label="done" type="checkbox" v-model="form.pdf"/>
+              <input class="mt-4" for="Done" label="done" type="checkbox" v-model="form.done"/>
               <span class="ml-4 font-medium text-large text-gray-700">Done</span>
               <div></div>
-              <input label="todo" for="Todo" type="checkbox" v-model="form.xlsx" /><span
+              <input label="todo" for="Todo" type="checkbox" v-model="form.todo" /><span
                 class="ml-4 font-medium text-large text-gray-700"
                 >Todo</span
               >
@@ -49,7 +49,7 @@
 
     <div class="row mt-5">
       <div class="col text-right">
-        <button class="bg-green-400 px-4 py-2 rounded" @click="addTodo">
+        <button class="bg-green-400 px-4 py-2 rounded" @click="getFile">
           Download
         </button>
       </div>
@@ -57,53 +57,49 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-
-//import NameCard from "./NameCard.vue";
-
+import axios from 'axios';
 export default {
-  data() {
+  data () {
     return {
-      apiURL: process.env.VUE_APP_BACKEND_URL,
       form: {
-        title: "New Task",
-        date: new Date(),
-        filetype: "XLSX",
-        userName: "Mary",
-      },
-    };
+        fileType: 'PDF',
+        todo: false,
+        done: false
+      }
+    }
   },
-  components: {
-    //NameCard
-  },
-  computed: {},
-
   methods: {
-    async addTodo() {
-      let newName = this.name;
-      this.form.userName = newName;
+    async getFile () {
       await axios({
-        url: `${this.apiURL}api/createTask`,
-        method: "POST",
+        url: 'api/downloadFile',
+        method: 'POST',
         data: this.form,
-      });
-
-      this.$emit("task-added", { userName: newName }); //Tuleb app.vuest, emit saadab sündmuse 'task-added' parent componendile
-
-      // this.form = { //selle osa saadame evendiga kaasa
-      //   title: "New Task",
-      //   date: new Date(),
-      //   priority: "MEDIUM",
-      //   color: "GRAY",
-      //   userName: "MARY"
-      // }
+        responseType: 'arraybuffer'
+      }).then(rs => {
+        this.downloadBinaryFile(rs.data, rs.headers, 'Todo')
+      })
     },
-  },
+    downloadFile (content, headers, name) {
+      const blob = new Blob([
+        content
+      ], { type: headers['content-type'] })
+      const link = document.createElement('a')
+      link.href = window.URL.createObjectURL(blob)
+      link.download = !name ? headers['content-disposition'].split('filename=')[1].replace(/(^")|("$)/g, '') : name + (blob.type === 'application/pdf' ? '.pdf' : '')
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    },
+    downloadBinaryFile (binaryContent, headers, name) {
+      this.downloadFile(new Uint8Array(binaryContent), headers, name)
+    }
+  }
 };
 </script>
+
 <style scoped>
-.border-gray {
-  border-bottom: 1px solid rgba(55, 65, 81, 0.3);
-  border-radius: 0;
-}
+  .border-gray {
+    border-bottom: 1px solid rgba(55, 65, 81, 0.3);
+    border-radius: 0;
+  }
 </style>
