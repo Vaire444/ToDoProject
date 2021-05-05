@@ -16,7 +16,7 @@
           >File type</label
         >
         <select
-          v-model="form.filetype"
+          v-model="form.fileType"
           name="filetype"
           class="mt-1 block w-full border-gray text-gray-700 p-1"
         >
@@ -36,7 +36,7 @@
                   for="Done"
                   label="done"
                   type="checkbox"
-                  v-model="form.pdf"
+                  v-model="form.done"
                 />
                 <span class="ml-4 font-medium text-large text-gray-700"
                   >Done</span
@@ -46,7 +46,7 @@
                   label="todo"
                   for="Todo"
                   type="checkbox"
-                  v-model="form.xlsx"
+                  v-model="form.todo"
                 /><span class="ml-4 font-medium text-large text-gray-700"
                   >Todo</span
                 >
