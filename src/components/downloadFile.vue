@@ -29,10 +29,10 @@
               label="done"
               type="checkbox"
               v-model="form.pdf"
-            /><span class="ml-4 text-sm font-medium text-gray-700">Done</span>
+            /><span class="ml-4 font-medium text-gray-700">Done</span>
             <div></div>
             <input label="todo" type="checkbox" v-model="form.xlsx" /><span
-              class="ml-4 text-sm font-medium text-gray-700"
+              class="ml-4 font-medium text-gray-700"
               >Todo</span
             >
           </div>
@@ -41,9 +41,9 @@
 
       <div class="col"></div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-4">
       <div class="col text-right">
-        <button class="bg-green-400 px-4 py-2 rounded" @click="addTodo">
+        <button class="bg-green-400 px-4 py-2 rounded" @click="getFile">
           Download
         </button>
       </div>

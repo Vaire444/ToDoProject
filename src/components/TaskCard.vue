@@ -9,11 +9,11 @@
       </p>
       <p>
         <button
-          class="text-red-700 font-semibold font-sans tracking-wide text-sm"
+          class="mr-2 text-red-700 font-semibold font-sans tracking-wide text-sm"
           id="delete"
           @click="deleteTodo"
         >
-          delete
+          Delete
         </button>
       </p>
     </div>
