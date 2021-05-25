@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    name: "John",
+    name: "",
   },
   mutations: {
     setName(state, input) {

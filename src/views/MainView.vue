@@ -3,14 +3,8 @@
     <div class="flex justify-center">
       <div class="min-h-screen flex overflow-x-scroll py-12">
         <div>
-          <div v-if="!isHidden" class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4">
-            <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">
-              Search Name
-            </p>
-            <name-card class="my-3" @name-added="getTasksByName" />
-          </div>
 
-          <div v-if="isHidden" class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4">
+          <div class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4">
             <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">
               Add new todo
             </p>
@@ -20,7 +14,7 @@
         </div>
       </div>
 
-      <div v-if="isHidden" class="min-h-screen flex overflow-x-scroll py-12">
+      <div class="min-h-screen flex overflow-x-scroll py-12">
         <div v-for="column in columns" :key="column.title" class="bg-gray-100 rounded-lg px-3 py-3 column-width rounded mr-4">
           <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">
             {{ column.title }}
@@ -53,7 +47,6 @@
 import draggable from "vuedraggable";
 import TaskCard from "../components/TaskCard.vue";
 import NewTask from "../components/NewTask.vue";
-import NameCard from '../views/NameCard';
 import axios from "axios";
 import Download from "../components/Download.vue";
 
@@ -63,7 +56,6 @@ export default {
     TaskCard,
     draggable,
     NewTask,
-    NameCard,
     Download,
   },
 
@@ -80,13 +72,14 @@ export default {
           title: "Done",
           task: [],
         },
-      ], //paneb mõlemad columsid, selleks paneme struktuuri juurde
-      isHidden: false,
-      userName: "John",
+      ],
+     form: {
+        userName: "John"
+      },
     };
   },
   async created() {
-    await this.getTasks();
+    await this.getTasksByName();
   },
   methods: {
     async getTasks() {
@@ -99,26 +92,18 @@ export default {
       // this.columns.push(resDone.data[0]);
     },
 
-    async getTasksByName(event) {
-      //eslint-disable-next-line no-console
-      console.log(event.userName); //objet mille sees on property
-      if (event.userName == "") {
-        // const getAll = await axios({
-        //   url: `${this.apiURL}api/all-tasks`,
-        //   method: "GET",
-        // });
-        // this.isHidden = true;
-        // this.columns = getAll.data.result;
-      } else {
-        const getTasksName = await axios({
-          url: `${this.apiURL}api/getTasksByName/` + event.userName, //get tasks By Name
-          method: "GET",
-        });
-        // eslint-disable-next-line no-console
-        //console.log("GetTasksByName" + getTasksName)
-        this.isHidden = true;
-        this.columns = getTasksName.data.result; //getime data mis columsites
-      }
+    async getTasksByName() {
+      let nameInput = this.$store.state.name;
+        //eslint-disable-next-line no-console
+      //console.log(nameInput); //objet mille sees on property
+      const getTasksName = await axios({
+        url: `${this.apiURL}api/getTasksByName/${nameInput}`, //get tasks By Name
+        method: "GET",
+      });
+      // eslint-disable-next-line no-console
+      //console.log("GetTasksByName" + getTasksName)
+      this.isHidden = true;
+      this.columns = getTasksName.data.result; //getime data mis columsites
     },
 
     async moveTask(event, column) {

@@ -87,8 +87,11 @@
     </div>
     <div class="row mt-5">
       <div class="col text-right">
-        <button class="bg-green-400 px-4 py-2 rounded" @click="addTodo">
+        <button class="add-todo bg-green-400 px-4 py-2 rounded" @click="addTodo">
           Add todo
+        </button>
+        <button class="bg-green-400 px-4 py-2 rounded" @click="changeName">
+          Change name
         </button>
       </div>
     </div>
@@ -156,6 +159,9 @@ export default {
       //   userName: "MARY"
       // }  
     },
+  changeName() {
+  this.$router.push("/")
+    },
     },
 };
 </script>
@@ -163,5 +169,8 @@ export default {
 .border-gray {
   border-bottom: 1px solid rgba(55, 65, 81, 0.3);
   border-radius: 0;
+}
+.add-todo {
+margin: 20px
 }
 </style>
