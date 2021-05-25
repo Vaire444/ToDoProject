@@ -14,6 +14,7 @@
     "moment": "^2.29.1",
     "register-service-worker": "^1.7.1",
     "vue": "^2.5.22",
+    "vue-router": "^3.5.1",
     "vuedraggable": "2.23.2",
     "vuejs-datepicker": "^1.6.2",
     "vuex": "^3.6.2"

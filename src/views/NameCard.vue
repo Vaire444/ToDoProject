@@ -1,4 +1,5 @@
 <template>
+
   <div class="bg-white shadow rounded px-3 pt-3 pb-5 border border-white">
 
     <div class="row">
@@ -21,9 +22,6 @@
           Find your Tasks
         </button>
       </div>
-
-
-
   </div>
 </template>
 <script>
@@ -46,10 +44,13 @@ export default {
 
   methods: {
     async addName() {
+      //eslint-disable-next-line no-console
       //axioust ei ole vaja eraldi välja tuua
       this.$emit('name-added', { 
         userName: this.form.userName
-      }) //Tuleb app.vuest, emit saadab sündmuse 'task-added' parent componendile
+      })
+      this.$router.push("/tasks")
+      //Tuleb app.vuest, emit saadab sündmuse 'task-added' parent componendile
       // this.form = { //selle osa saadame evendiga kaasa
       //   userName: "John"
       // }
