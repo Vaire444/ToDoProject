@@ -124,9 +124,9 @@ export default {
     },
     async getTasksByName(event) {
       const getAllByName = await axios({
-        // url: `${this.apiURL}api/getTasksByName/` + event.userName,
+         `${this.apiURL}api/getTasksByName/` + event.userName,
         // url: "api/getTasksByName/" + event.userName,
-        url: `https://todoapp8888.herokuapp.com/api/getTasksByName/${event.userName}`,
+        // url: `https://todoapp8888.herokuapp.com/api/getTasksByName/${event.userName}`,
         method: "GET",
       });
       (this.isHidden = false), (this.columns = getAllByName.data.result); //getime kogu data mis columsites
