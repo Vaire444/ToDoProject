@@ -36,6 +36,14 @@
         </span>
       </div>
     </div>
+    <!-- <div class="row mt-5">
+      <div class="col text-right">
+        <button class="bg-green-400 px-4 py-2 rounded" @click="changeName">
+          Change name
+        </button>
+      </div>
+    </div> -->
+
     <div class="row mt-4">
       <div class="col">
         <div
@@ -107,6 +115,7 @@ export default {
         color: "GRAY",
         userName: "Jane",
       },
+      isHidden: true,
     };
   },
   components: {
@@ -149,6 +158,13 @@ export default {
         priority: "MEDIUM",
         color: "GRAY",
       };
+    },
+    changeName() {
+      // eslint-disable-next-line no-console
+      console.log("funktsioon q");
+      this.$emit("name-changed", {
+        isHidden: this.isHidden,
+      });
     },
   },
 };

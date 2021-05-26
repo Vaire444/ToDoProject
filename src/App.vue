@@ -18,11 +18,22 @@
             v-if="!isHidden"
             class="bg-gray-100 rounded-lg px-3 py-3 column-double-width rounded mr-4"
           >
+            <div class="row mt-5">
+              <div class="col text-right">
+                <button
+                  class="bg-green-400 px-4 py-2 rounded"
+                  @click="changeName"
+                >
+                  Change name
+                </button>
+              </div>
+            </div>
             <p
               class="text-gray-700 font-semibold font-sans tracking-wide text-sm"
             >
               Add new todo
             </p>
+
             <new-task class="my-3" @task-added="getTasksByName($event)" />
           </div>
           <div
@@ -101,25 +112,30 @@ export default {
           title: "Done",
           task: [],
         },
-      ], //paneb mõlemad columsid, selleks paneme struktuuri juurde
+      ],
       isHidden: true,
     };
   },
   async created() {
     await this.getTasks();
   },
+
   methods: {
+    async changeName() {
+      this.isHidden = true;
+    },
+
     async getTasks() {
       const getAll = await axios({
         url: `${this.apiURL}api/all-tasks`,
-        // url: "api/all-tasks", //getin kõik taskid
+        // url: "api/all-tasks",
         // url: "https://todoapp8888.herokuapp.com/api/all-tasks",
         method: "GET",
       });
 
-      this.columns = getAll.data; //getime kogu data mis columsites
+      this.columns = getAll.data;
 
-      //this.columns.push(resTodo.data[0]);  ------> võtame maha ei pushi enamvaid tagastab kogu columiste data
+      //this.columns.push(resTodo.data[0]);
       // this.columns.push(resDone.data[0]);
     },
     async getTasksByName(event) {
