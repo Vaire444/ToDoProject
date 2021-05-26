@@ -36,6 +36,11 @@ import Badge from "./Badge.vue";
 import axios from "axios";
 
 export default {
+  data() {
+    return {
+      apiURL: process.env.VUE_APP_BACKEND_URL,
+    };
+  },
   components: {
     Badge,
   },
@@ -62,8 +67,8 @@ export default {
     async deleteTodo() {
       let newName = this.$store.state.name;
       await axios({
-        url: `api/deleteTask`,
-        // url: `${this.apiURL}api/deleteTask`,
+        // url: `api/deleteTask`,
+        url: `${this.apiURL}api/deleteTask`,
         method: "DELETE",
         data: this.task,
       });
