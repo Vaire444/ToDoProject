@@ -124,7 +124,7 @@ export default {
     },
     async getTasksByName(event) {
       const getAllByName = await axios({
-         `${this.apiURL}api/getTasksByName/` + event.userName,
+        url: `${this.apiURL}api/getTasksByName/` + event.userName,
         // url: "api/getTasksByName/" + event.userName,
         // url: `https://todoapp8888.herokuapp.com/api/getTasksByName/${event.userName}`,
         method: "GET",
