@@ -6,6 +6,16 @@
         <label for="name" class="block text-sm font-medium text-gray-700"
           >Name</label
         >
+        <select v-model="form.userName" class="form-control">
+          <option disabled selected value="">Please select value</option>
+          <option
+            v-for="existingUserName in existingUserNames"
+            :value="existingUserName"
+            :key="existingUserName"
+          >
+            {{ existingUserName }}
+          </option>
+        </select>
         <input
           v-model="form.userName"
           type="text"
@@ -31,13 +41,16 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import { mapState } from "vuex";
 export default {
   data() {
     return {
+      apiURL: process.env.VUE_APP_BACKEND_URL,
       form: {
-        userName: "John",
+        userName: "",
       },
+      existingUserNames: [],
     };
   },
 
@@ -45,7 +58,19 @@ export default {
     name: (state) => state.name,
     nameAlias: "name",
   }),
+  beforeMount() {
+    this.getAllDistinctUsers();
+    this.$store.state.name;
+  },
+
   methods: {
+    async getAllDistinctUsers() {
+      const getAll = await axios({
+        url: `${this.apiURL}api/distinctUsers`,
+        method: "GET",
+      });
+      this.existingUserNames = getAll.data;
+    },
     async addName() {
       this.$emit("name-added", {
         userName: this.form.userName,
