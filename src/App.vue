@@ -111,8 +111,8 @@ export default {
   methods: {
     async getTasks() {
       const getAll = await axios({
-        // url: `${this.apiURL}api/all-tasks`,
-        url: "api/all-tasks", //getin kõik taskid
+        url: `${this.apiURL}api/all-tasks`,
+        // url: "api/all-tasks", //getin kõik taskid
         // url: "https://todoapp8888.herokuapp.com/api/all-tasks",
         method: "GET",
       });
