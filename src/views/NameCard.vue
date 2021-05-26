@@ -5,17 +5,14 @@
 
     <div class="row">
       <div class="col">
-        <label for="title" class="block text-sm font-medium text-gray-700"
-          >User Name</label
-        >
 
-    <select class="form-control" @change="selectName($event)">
-    <option value="" selected disabled>Choose</option>
+    <select v-model="form.name" class="form-control">
+    <option disabled selected value="">Please select value</option>
     <option v-for="existingUserName in existingUserNames" :value="existingUserName" :key="existingUserName">{{ existingUserName}}</option>
   </select>
 
         <input
-          v-model="name"
+          v-model="form.name"
           type="text"
           name="title"
           class="mt-1 block w-full border-gray p-1"
@@ -25,7 +22,7 @@
 
     <col class="row mt-5">
       <div class="col text-right">
-        <button class="bg-green-400 px-4 py-2 rounded" @click="addName(), $store.commit('setName', name);">
+        <button class="bg-green-400 px-4 py-2 rounded" @click="addName(), $store.commit('setName', form.name);">
 
           Find your Tasks
         </button>
@@ -43,7 +40,7 @@ export default {
     return {
     apiURL: process.env.VUE_APP_BACKEND_URL,
       form: {
-        userName: this.$store.state.name
+        name: ""
       },
   existingUserNames: [],
     };
@@ -56,10 +53,6 @@ export default {
     this.getAllUsers();
   },
   methods: {
-  selectName(event) {
-  this.$store.state.name = event.target.options[event.target.options.selectedIndex].text
-  },
-
   async getAllUsers() {
       const getAll = await axios({
         url: `${this.apiURL}api/all-users`,
