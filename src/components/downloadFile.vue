@@ -68,9 +68,11 @@
 </template>
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
+      apiURL: process.env.VUE_APP_BACKEND_URL,
       form: {
         fileType: "XLSX",
         todo: false,
@@ -81,7 +83,8 @@ export default {
   methods: {
     async getFile() {
       await axios({
-        url: "api/downloadFile",
+        url: `${this.apiURL}api/downloadFile`,
+        // url: "api/downloadFile",
         method: "POST",
         data: this.form,
         responseType: "arraybuffer",
